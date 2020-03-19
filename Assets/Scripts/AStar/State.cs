@@ -95,14 +95,8 @@ public class State
 
         public static bool operator ==(State s1, State s2)
         {
-            if(object.ReferenceEquals(s1, s2))
-            {
-                return true;
-            }
-            if(object.ReferenceEquals(s1, null) || object.ReferenceEquals(s2, null))
-            {
-                return false;
-            }
+            if(object.ReferenceEquals(s1, s2)) { return true; }
+            if(object.ReferenceEquals(s1, null) || object.ReferenceEquals(s2, null)) { return false; }
 
             return s1.GetPosX() == s2.GetPosX() && s1.GetPosY() == s2.GetPosY();
         }
