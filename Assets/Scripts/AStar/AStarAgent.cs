@@ -43,7 +43,8 @@ namespace TDHeartBeat.Assets.Scripts.AStar
         /// 
         ///  Returns null if no path is found. 
         /// </returns>
-        //*  Traverse the tree via the parent nodes and add the actions to the stack, Available cells should be stored once in some controller class and updated there
+        //* Traverse the tree via the parent nodes and add the actions to the stack,
+        //* Available cells should be stored once in some controller class and updated there
         public Stack<Vector2> getMoves(List<Vector2Int> availableCells, Vector2Int agentPosition, Tilemap map)
         {
             endNode = null;
@@ -55,6 +56,7 @@ namespace TDHeartBeat.Assets.Scripts.AStar
 
             if(endNode == null) { return null; }    // no goal found, return null
 
+            // Get all the node action be traversing the tree backwards from the end node
             Node currNode = endNode;
             while(currNode.parent != null)
             {
@@ -67,12 +69,13 @@ namespace TDHeartBeat.Assets.Scripts.AStar
 
         private Node Search(Tilemap map)
         {
-            Dictionary<int, bool> exploredSet = new Dictionary<int, bool>();
-            Dictionary<int, int> extraFrontier = new Dictionary<int, int>();
+            // The Dictionary data structure is equivalent to a hashtable
+            Dictionary<int, bool> exploredSet = new Dictionary<int, bool>();    // Used to quickly check if a node has been explored
+            Dictionary<int, int> extraFrontier = new Dictionary<int, int>();    // Lookup table for the frontier to very quickly find if a node is within the frontier, as well as seeing the node cost
             
-            // List and comparer
-            List<Node> frontier = new List<Node>();
-            FrontierComparer comparer = new FrontierComparer();
+            // Frontier and comparer
+            List<Node> frontier = new List<Node>(); // The frontier holds all the unexpanded leafs
+            FrontierComparer comparer = new FrontierComparer(); // Used to compare nodes for the sorting algorithm
 
             // Checks if the root is the goal state
             if(root.state.isGoal(goalState)) { return root; }
@@ -108,18 +111,17 @@ namespace TDHeartBeat.Assets.Scripts.AStar
                     // if it is in the frontier update cost if it's less expencive
                     if(!inFrontier && !exploredSet.ContainsKey(child.GetHashCode()))
                     {
-                        frontier.Add(child);
-                        frontier.Sort(comparer);
-                        extraFrontier.Add(child.GetHashCode(), child.cost);
+                        frontier.Add(child);                                // Add new child to frontier
+                        frontier.Sort(comparer);                            // Sort the fronter after adding
+                        extraFrontier.Add(child.GetHashCode(), child.cost); // Add the node and it's cost to extra frontier
                     }
                     else if(inFrontier)
                     {
                         if(extraFrontier[child.GetHashCode()] > child.cost)
                         {
-                            frontier[0].Copy(child);
-
-                            frontier.Sort(comparer);
-                            extraFrontier[child.GetHashCode()] = child.cost;
+                            frontier[0].Copy(child);                            // copy child node info
+                            frontier.Sort(comparer);                            // Sort the frontier by node cost
+                            extraFrontier[child.GetHashCode()] = child.cost;    // update the cost of the node in the extra frontier
                         }
                     }
                 }
@@ -132,6 +134,7 @@ namespace TDHeartBeat.Assets.Scripts.AStar
         private int heuristicSearch(Node node)
         {
             //TODO: maybe check performance with euclidian distance
+            // Returns the manhattan distance to the goal (delta x + delta y)
             return Mathf.Abs(node.state.GetPosX() - goalState.GetPosX()) + Mathf.Abs(node.state.GetPosY() - goalState.GetPosY());
         }
     }
