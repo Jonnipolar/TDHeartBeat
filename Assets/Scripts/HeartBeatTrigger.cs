@@ -8,14 +8,8 @@ public class HeartBeatTrigger : MonoBehaviour
     public float startDelay = 0.0f;
     public float beatInterval = 1.0f;
 
-    public UnityEvent HeartBeatEvent;
-
     void Start()
     {
-        if(HeartBeatEvent == null)
-        {
-            HeartBeatEvent = new UnityEvent();
-        }
         StartCoroutine(BeatCoroutine());
     }
 
