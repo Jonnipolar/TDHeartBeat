@@ -57,7 +57,7 @@ public class VirusMovement : MonoBehaviour
         }
     }
 
-    public SetPath(Stack<Vector2> newPath) 
+    public void SetPath(Stack<Vector2> newPath) 
     {
         path = newPath;
     }
