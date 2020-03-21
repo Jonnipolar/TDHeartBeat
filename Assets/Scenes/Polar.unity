@@ -11696,18 +11696,16 @@ PrefabInstance:
         type: 3}
       propertyPath: projectile
       value: 
-      objectReference: {fileID: 3919599697955792042, guid: f966ef2815b949a4695966df62aa6f72,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 6340481384636058985, guid: b3c8a71ee5c51db449cb6fc6f73c8023,
         type: 3}
       propertyPath: firePoint
       value: 
-      objectReference: {fileID: 7694927163688428861}
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340481384636058985, guid: b3c8a71ee5c51db449cb6fc6f73c8023,
+        type: 3}
+      propertyPath: range
+      value: 3.14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3c8a71ee5c51db449cb6fc6f73c8023, type: 3}
---- !u!4 &7694927163688428861 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2825220772134108184, guid: b3c8a71ee5c51db449cb6fc6f73c8023,
-    type: 3}
-  m_PrefabInstance: {fileID: 7694927163688428860}
-  m_PrefabAsset: {fileID: 0}
