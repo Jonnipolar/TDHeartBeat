@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TDHeartBeat.Assets.Scripts.AStar;
 
 public class GetAllTilePositions : MonoBehaviour
 {
@@ -10,7 +11,14 @@ public class GetAllTilePositions : MonoBehaviour
  
     public List<Vector3> availablePlaces;
     public List<Vector3Int> availablePlacesCell;
+    
+    // Private variables
+    private AStarAgent agent;
+    private Stack<string> moves;
+    private List<Vector2Int> availableCells2D;
  
+    // Start -8, 8
+    // end 0 -2
     void Awake () 
     {
         tileMap = transform.GetComponentInParent<Tilemap>();
@@ -34,17 +42,33 @@ public class GetAllTilePositions : MonoBehaviour
                 }
             }
         }
+
+        availableCells2D = new List<Vector2Int>();
+        foreach (var pos in availablePlacesCell)
+        {
+            availableCells2D.Add(new Vector2Int(pos.x, pos.y));
+        }
     }
 
     void Start()
     {
-        for(var i = 0; i < availablePlaces.Count; i++)
+        // for(var i = 0; i < availablePlaces.Count; i++)
+        // {
+        //     Debug.Log($"World: {availablePlaces[i]} \nCell: {availablePlacesCell[i]}");
+        // }
+
+        // Debug.Log($"Size of available places: {availablePlaces.Count}");
+        // Debug.Log($"Size of available places Cell: {availablePlacesCell.Count}");
+
+        agent = new AStarAgent(new Vector2Int(0, -2));
+        moves = agent.getMoves(availableCells2D, new Vector2Int(-8, 8));
+
+        Debug.Log("Path:");
+        foreach (var move in moves)
         {
-            Debug.Log($"World: {availablePlaces[i]} \nCell: {availablePlacesCell[i]}");
+            Debug.Log(move);
         }
 
-        Debug.Log($"Size of available places: {availablePlaces.Count}");
-        Debug.Log($"Size of available places Cell: {availablePlacesCell.Count}");
     }
 
     // Update is called once per frame

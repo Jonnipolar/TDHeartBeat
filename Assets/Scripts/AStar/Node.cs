@@ -3,19 +3,19 @@ namespace TDHeartBeat.Assets.Scripts.AStar
     public class Node
     {
         public Node parent;     // Parent node
-        public string action;   //! Action to get here?
+        public string action;   // Action made to get here
         public State state; // State at this location
         public int cost;    // Cost of moving to this cell
         public int hCost;   // cost for Heuristics
 
-        Node(Node parent, string action, State state)
+        public Node(Node parent, string action, State state)
         {
             this.parent = parent;
             this.action = action;
             this.state = state;
         }
 
-        Node(State state)
+        public Node(State state)
         {
             this.parent = null;
             this.action = "\0";

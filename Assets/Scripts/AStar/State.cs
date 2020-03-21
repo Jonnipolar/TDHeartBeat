@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TDHeartBeat.Assets.Scripts.AStar
 {
-public class State
+    public class State
     {
         private int _cellPosX;
         private int _cellPosY;
@@ -23,7 +23,7 @@ public class State
         public int GetPosX() => _cellPosX;
         public int GetPosY() => _cellPosY;
 
-        public List<string> availableMoves(List<Vector2Int> validCells, int width, int height)
+        public List<string> availableMoves(List<Vector2Int> validCells)     //TODO: Change actions to be location in world coord
         {
             List<string> moves = new List<string>();
 
@@ -47,9 +47,6 @@ public class State
             if(validCells.Contains(new Vector2Int(_cellPosX + 1, _cellPosY))) { moves.Add(Actions.Right); }               // Checks to the right
 
             if(validCells.Contains(new Vector2Int(_cellPosX - 1, _cellPosY))) { moves.Add(Actions.Left); }                // Checks to the left
-
-            // If it can't move, return no moves and wait for next check...
-            if(validCells.Count <= 0) { moves.Add(Actions.NoMoves); }
 
             return moves;
         }
@@ -108,9 +105,11 @@ public class State
 
         public override int GetHashCode()
         {
-            string code = _cellPosX.ToString() + _cellPosY.ToString();
+            var hashCode = 352033288;
+            hashCode = hashCode * -1521134295 + _cellPosX.GetHashCode();
+            hashCode = hashCode * -1521134295 + _cellPosY.GetHashCode();
 
-            return int.Parse(code);
+            return hashCode;
         }
 
         public bool Equals(State other)
