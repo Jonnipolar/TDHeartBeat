@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace TDHeartBeat.Assets.Scripts.AStar
 {
@@ -23,30 +24,30 @@ namespace TDHeartBeat.Assets.Scripts.AStar
         public int GetPosX() => _cellPosX;
         public int GetPosY() => _cellPosY;
 
-        public List<string> availableMoves(List<Vector2Int> validCells)     //TODO: Change actions to be location in world coord
+        public List<Tuple<string, Vector2>> availableMoves(List<Vector2Int> validCells, Tilemap map)
         {
-            List<string> moves = new List<string>();
+            // Creating tuple for check as well
+            List<Tuple<string, Vector2>> moves = new List<Tuple<string, Vector2>>();
 
             // Every other cell has their diagonal increment in an another direction, hence we need to check all even and odd X's and Y's
             if (_evenState)
             {
-                if(validCells.Contains(new Vector2Int(_cellPosX, _cellPosY + 1))) { moves.Add(Actions.RightUp); }         // Checks upper right
-                if(validCells.Contains(new Vector2Int(_cellPosX - 1, _cellPosY + 1))) { moves.Add(Actions.LeftUp); }      // Checks upper left
-                if(validCells.Contains(new Vector2Int(_cellPosX - 1, _cellPosY - 1))) { moves.Add(Actions.LeftDown); }    // Checks lower left
-                if(validCells.Contains(new Vector2Int(_cellPosX, _cellPosY - 1))) { moves.Add(Actions.RightDown); }       // Checks lower right
+                if(validCells.Contains(new Vector2Int(_cellPosX, _cellPosY + 1)))       { moves.Add(new Tuple<string, Vector2>(Actions.RightUp, map.GetCellCenterWorld(new Vector3Int(_cellPosX, _cellPosY + 1, 0)))); }            // Checks upper right
+                if(validCells.Contains(new Vector2Int(_cellPosX - 1, _cellPosY + 1)))   { moves.Add(new Tuple<string, Vector2>(Actions.LeftUp, map.GetCellCenterWorld(new Vector3Int(_cellPosX - 1, _cellPosY + 1, 0)))); }         // Checks upper left
+                if(validCells.Contains(new Vector2Int(_cellPosX - 1, _cellPosY - 1)))   { moves.Add(new Tuple<string, Vector2>(Actions.LeftDown, map.GetCellCenterWorld(new Vector3Int(_cellPosX - 1, _cellPosY - 1, 0)))); }       // Checks lower left
+                if(validCells.Contains(new Vector2Int(_cellPosX, _cellPosY - 1)))       { moves.Add(new Tuple<string, Vector2>(Actions.RightDown, map.GetCellCenterWorld(new Vector3Int(_cellPosX, _cellPosY - 1, 0)))); }          // Checks lower right
             }
             else
             {
-                if(validCells.Contains(new Vector2Int(_cellPosX + 1, _cellPosY + 1))) { moves.Add(Actions.RightUp); }     // Checks upper right
-                if(validCells.Contains(new Vector2Int(_cellPosX, _cellPosY + 1))) { moves.Add(Actions.LeftUp); }          // Checks upper left
-                if(validCells.Contains(new Vector2Int(_cellPosX, _cellPosY - 1))) { moves.Add(Actions.LeftDown); }        // Checks lower left
-                if(validCells.Contains(new Vector2Int(_cellPosX + 1, _cellPosY - 1))) { moves.Add(Actions.RightDown); }   // Checks lower right
+                if(validCells.Contains(new Vector2Int(_cellPosX + 1, _cellPosY + 1)))   { moves.Add(new Tuple<string, Vector2>(Actions.RightUp, map.GetCellCenterWorld(new Vector3Int(_cellPosX + 1, _cellPosY + 1, 0)))); }        // Checks upper right
+                if(validCells.Contains(new Vector2Int(_cellPosX, _cellPosY + 1)))       { moves.Add(new Tuple<string, Vector2>(Actions.LeftUp, map.GetCellCenterWorld(new Vector3Int(_cellPosX, _cellPosY + 1, 0)))); }             // Checks upper left
+                if(validCells.Contains(new Vector2Int(_cellPosX, _cellPosY - 1)))       { moves.Add(new Tuple<string, Vector2>(Actions.LeftDown, map.GetCellCenterWorld(new Vector3Int(_cellPosX, _cellPosY - 1, 0)))); }           // Checks lower left
+                if(validCells.Contains(new Vector2Int(_cellPosX + 1, _cellPosY - 1)))   { moves.Add(new Tuple<string, Vector2>(Actions.RightDown, map.GetCellCenterWorld(new Vector3Int(_cellPosX + 1, _cellPosY - 1, 0)))); }      // Checks lower right
             }
 
             // left and right are always the same
-            if(validCells.Contains(new Vector2Int(_cellPosX + 1, _cellPosY))) { moves.Add(Actions.Right); }               // Checks to the right
-
-            if(validCells.Contains(new Vector2Int(_cellPosX - 1, _cellPosY))) { moves.Add(Actions.Left); }                // Checks to the left
+            if(validCells.Contains(new Vector2Int(_cellPosX + 1, _cellPosY))) { moves.Add(new Tuple<string, Vector2>(Actions.Right, map.GetCellCenterWorld(new Vector3Int(_cellPosX + 1, _cellPosY, 0)))); }  // Checks to the right
+            if(validCells.Contains(new Vector2Int(_cellPosX - 1, _cellPosY))) { moves.Add(new Tuple<string, Vector2>(Actions.Left, map.GetCellCenterWorld(new Vector3Int(_cellPosX - 1, _cellPosY, 0)))); }   // Checks to the left
 
             return moves;
         }
@@ -74,7 +75,7 @@ namespace TDHeartBeat.Assets.Scripts.AStar
                 if(action == Actions.RightDown) { return new State(_cellPosX + 1, _cellPosY - 1); } // Moves right and down
             }
 
-            //! If returning null then wait
+            // Return null if execute move cannot be done, something really is then wrong
             return null;
         }
 

@@ -1,14 +1,15 @@
+using UnityEngine;
+
 namespace TDHeartBeat.Assets.Scripts.AStar
 {
     public class Node
     {
         public Node parent;     // Parent node
-        public string action;   // Action made to get here
+        public Vector2 action;   // Action made to get here
         public State state; // State at this location
         public int cost;    // Cost of moving to this cell
-        public int hCost;   // cost for Heuristics
 
-        public Node(Node parent, string action, State state)
+        public Node(Node parent, Vector2 action, State state)
         {
             this.parent = parent;
             this.action = action;
@@ -18,9 +19,23 @@ namespace TDHeartBeat.Assets.Scripts.AStar
         public Node(State state)
         {
             this.parent = null;
-            this.action = "\0";
+            this.action = new Vector2(int.MinValue, int.MinValue);
             this.state = state;
             this.cost = 0;
+        }
+
+        ///<summary>
+        /// Copies other node to equal this node.
+        ///</summary>
+        /// <param name="other">
+        ///  The node that should be copied to this node
+        /// </param>
+        public void Copy(Node other)
+        {
+            this.parent = other.parent;
+            this.action.x = other.action.x;
+            this.action.y = other.action.y;
+            this.cost = other.cost;
         }
 
         //*         Overrides           *//

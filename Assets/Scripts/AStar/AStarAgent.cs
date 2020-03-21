@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace TDHeartBeat.Assets.Scripts.AStar
 {
@@ -12,7 +13,7 @@ namespace TDHeartBeat.Assets.Scripts.AStar
         private State goalState;
         private List<Vector2Int> availableCells;
 
-        private Stack<string> move;
+        private Stack<Vector2> move;
 
         /// <summary>
         ///  Creates an A Star agent
@@ -34,20 +35,23 @@ namespace TDHeartBeat.Assets.Scripts.AStar
         /// <param name="agentPosition">
         ///  The position of the agent right now
         /// </param>
+        /// <param name="map">
+        ///  Tilemap on the map the algorithm is working on
+        /// </param>
         /// <returns>
-        ///  Returns a Stack of strings with the moves needed to rech the goal.
+        ///  Returns a Stack of vector2 with the moves needed to reach the goal.
         /// 
         ///  Returns null if no path is found. 
         /// </returns>
         //*  Traverse the tree via the parent nodes and add the actions to the stack, Available cells should be stored once in some controller class and updated there
-        public Stack<string> getMoves(List<Vector2Int> availableCells, Vector2Int agentPosition)
-        {   //TODO: return vector2 stack
+        public Stack<Vector2> getMoves(List<Vector2Int> availableCells, Vector2Int agentPosition, Tilemap map)
+        {
             endNode = null;
-            move = new Stack<string>();
+            move = new Stack<Vector2>();
             root = new Node(new State(agentPosition.x, agentPosition.y));
             this.availableCells = availableCells;
 
-            endNode = Search(); // perform the search
+            endNode = Search(map); // perform the search
 
             if(endNode == null) { return null; }    // no goal found, return null
 
@@ -61,7 +65,7 @@ namespace TDHeartBeat.Assets.Scripts.AStar
             return move;
         }
 
-        private Node Search()
+        private Node Search(Tilemap map)
         {
             Dictionary<int, bool> exploredSet = new Dictionary<int, bool>();
             Dictionary<int, int> extraFrontier = new Dictionary<int, int>();
@@ -89,14 +93,15 @@ namespace TDHeartBeat.Assets.Scripts.AStar
                 // Add node to explored set
                 exploredSet.Add(node.GetHashCode(), true);
 
-                // Get all available actions from this node
-                IEnumerable<string> actions = node.state.availableMoves(availableCells);
+                // Get all available actions from this node and the transition (as tuples)
+                IEnumerable<Tuple<string, Vector2>> actions = node.state.availableMoves(availableCells, map);
 
                 // Loop through all the actions and create leaf nodes with heuristic cost, only if not expanded before
                 foreach (var action in actions)
                 {
-                    Node child = new Node(node, action, node.state.executeMove(action));
-                    child.cost += heuristicSearch(child);   // Check Manhatten cost
+                    // Create child note, where Node.action is the position moved to in the action while execute move is the string representation of the movement in the action
+                    Node child = new Node(node, action.Item2, node.state.executeMove(action.Item1));
+                    child.cost += heuristicSearch(child);   // Check Heuristic cost
                     bool inFrontier = extraFrontier.ContainsKey(child.GetHashCode());
 
                     // Only add the child to the frontier if not there already and has not been explored
@@ -111,10 +116,7 @@ namespace TDHeartBeat.Assets.Scripts.AStar
                     {
                         if(extraFrontier[child.GetHashCode()] > child.cost)
                         {
-                            //! Make work, then test changing values then sort
-                            frontier.RemoveAt(0);
-                            frontier.Add(child);
-                            //! -----------------
+                            frontier[0].Copy(child);
 
                             frontier.Sort(comparer);
                             extraFrontier[child.GetHashCode()] = child.cost;

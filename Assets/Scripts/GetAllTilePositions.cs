@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TDHeartBeat.Assets.Scripts.AStar;
@@ -14,7 +13,7 @@ public class GetAllTilePositions : MonoBehaviour
     
     // Private variables
     private AStarAgent agent;
-    private Stack<string> moves;
+    private Stack<Vector2> moves;
     private List<Vector2Int> availableCells2D;
  
     // Start -8, 8
@@ -61,12 +60,12 @@ public class GetAllTilePositions : MonoBehaviour
         // Debug.Log($"Size of available places Cell: {availablePlacesCell.Count}");
 
         agent = new AStarAgent(new Vector2Int(0, -2));
-        moves = agent.getMoves(availableCells2D, new Vector2Int(-8, 8));
+        moves = agent.getMoves(availableCells2D, new Vector2Int(-8, 8), tileMap);
 
         Debug.Log("Path:");
         foreach (var move in moves)
         {
-            Debug.Log(move);
+            Debug.Log($"Pos: ({move.x}, {move.y})");
         }
 
     }
