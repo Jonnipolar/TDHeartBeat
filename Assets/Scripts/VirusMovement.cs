@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Virus))]
 public class VirusMovement : MonoBehaviour
 {
-    public float movementTime = 0.5f;
     public Stack<Vector2> path;
 
     float inverseMovementTime;
     Rigidbody2D rb;
     bool moving;
-
+    private Virus virus;
+    private bool movementChange = false;
+    
     void Start()
     {
+        virus = GetComponent<Virus>();
         rb = GetComponent<Rigidbody2D>();
-        inverseMovementTime = 1.0f / movementTime;
+        inverseMovementTime = 1.0f / virus.currentMovementTime;
     }
 
     void followPath()
@@ -51,14 +54,28 @@ public class VirusMovement : MonoBehaviour
 
     void Update() 
     {
+        if(virus.currentMovementTime != virus.movementTime)
+        {
+            movementChange = true;
+            inverseMovementTime = 1.0f / virus.currentMovementTime;
+        }
+
+        if(virus.currentMovementTime == virus.movementTime && movementChange)
+        {
+            movementChange = false;
+            inverseMovementTime = 1.0f / virus.currentMovementTime;
+        }
+
         if(path != null)
         {
             followPath();    
         }
     }
 
+
     public void SetPath(Stack<Vector2> newPath) 
     {
         path = newPath;
     }
+
 }

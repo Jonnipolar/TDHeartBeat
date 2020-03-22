@@ -1,71 +1,63 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NormalTurret : MonoBehaviour
+public class SlowTurret : MonoBehaviour
 {
-    // For targeting enemy
-    private Transform target;
+     // For targeting enemy
+    private List<GameObject> target;
+    private Virus virus;
+    
     [Header("Attributes")]
     public float range = 15f;
     public int  damage = 20;
-
+    public float slowAmount = 0.3f;
+   
     [Header("Unity Setup Fields")]
     public string enemyTag = "Enemy";
     public GameObject projectile;
-    // Might not need
     public Transform firePoint;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating ("UpdateTarget", 0f, 0.5f);
         EventManager.StartListening("HeartBeat", HandleHeartBeat);
+        target = new List<GameObject>();
     }
 
     void UpdateTarget () 
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
+        target.Clear();
 
         foreach(GameObject enemy in enemies)
         {
             // Could have to be vector3
             float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
-            if(distanceToEnemy < shortestDistance)
+            if(distanceToEnemy < range)
             {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
+                target.Add(enemy);
             }
-        }
-
-        if(nearestEnemy != null && shortestDistance <= range)
-        {
-            target = nearestEnemy.transform;
-        }
-        else 
-        {
-            target = null;
         }
     }
 
     void HandleHeartBeat()
     {
+        UpdateTarget();
         if(target == null) { return; }
         Shoot();
     }
 
     void Shoot()
     {
-        GameObject projectileGO = (GameObject) Instantiate(projectile, firePoint.position, firePoint.rotation);
-        Projectile proj = projectileGO.GetComponent<Projectile>();
-
-        if(proj != null)
+        foreach(GameObject enemy in target)
         {
-            proj.Seek(target);
+            Virus virus = enemy.GetComponent<Virus>();
+            virus.Slow(slowAmount);
         }
+        
     }
 
     private void OnDrawGizmosSelected() 
