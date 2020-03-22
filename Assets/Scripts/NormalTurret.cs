@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class NormalTurret : MonoBehaviour
 {
     // For targeting enemy
     private Transform target;
     [Header("Attributes")]
     public float range = 15f;
-    public float fireRate = 1f;
-    private float fireCountdown = 0f;
     [Header("Unity Setup Fields")]
     public string enemyTag = "Enemy";
     public GameObject projectile;
@@ -21,6 +19,7 @@ public class Turret : MonoBehaviour
     void Start()
     {
         InvokeRepeating ("UpdateTarget", 0f, 0.5f);
+        EventManager.StartListening("HeartBeat", HandleHeartBeat);
     }
 
     void UpdateTarget () 
@@ -53,15 +52,21 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    //     if(target == null) { return; }
+
+    //     if(fireCountdown <= 0f)
+    //     {
+    //         Shoot();
+    //         fireCountdown = 1f / fireRate;
+    //     }
+
+    //     fireCountdown -= Time.deltaTime;
+    }
+
+    void HandleHeartBeat()
+    {
         if(target == null) { return; }
-
-        if(fireCountdown <= 0f)
-        {
-            Shoot();
-            fireCountdown = 1f / fireRate;
-        }
-
-        fireCountdown -= Time.deltaTime;
+        Shoot();
     }
 
     void Shoot()
