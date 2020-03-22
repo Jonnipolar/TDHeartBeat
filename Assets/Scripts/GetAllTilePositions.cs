@@ -10,10 +10,13 @@ public class GetAllTilePositions : MonoBehaviour
  
     public List<Vector3> availablePlaces;
     public List<Vector3Int> availablePlacesCell;
+    public Vector2Int goalPosition;
+    public Vector2Int startPosition;
     
     // Private variables
     private AStarAgent agent;
-    private Stack<Vector2> moves;
+    [HideInInspector]
+    public Stack<Vector2> moves;
     private List<Vector2Int> availableCells2D;
  
     // Start -8, 8
@@ -59,14 +62,14 @@ public class GetAllTilePositions : MonoBehaviour
         // Debug.Log($"Size of available places: {availablePlaces.Count}");
         // Debug.Log($"Size of available places Cell: {availablePlacesCell.Count}");
 
-        agent = new AStarAgent(new Vector2Int(0, -2));
-        moves = agent.getMoves(availableCells2D, new Vector2Int(-8, 8), tileMap);
+        agent = new AStarAgent(goalPosition);
+        moves = agent.getMoves(availableCells2D, startPosition, tileMap);
 
-        Debug.Log("Path:");
-        foreach (var move in moves)
-        {
-            Debug.Log($"Pos: ({move.x}, {move.y})");
-        }
+        // Debug.Log("Path:");
+        // foreach (var move in moves)
+        // {
+        //     Debug.Log($"Pos: ({move.x}, {move.y})");
+        // }
 
     }
 

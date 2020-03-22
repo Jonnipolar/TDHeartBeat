@@ -7,10 +7,10 @@ public class Virus : MonoBehaviour
 {
     public float movementTime = 0.5f;
     public float health = 100f;
-    [HideInInspector]
-    public float currentMovementTime;
+    // [HideInInspector]
+    public float currentMovementTime = 0.5f;
 
-    void Start()
+    private void Awake() 
     {
         currentMovementTime = movementTime;
     }
@@ -23,6 +23,7 @@ public class Virus : MonoBehaviour
     IEnumerator SlowCoroutine()
     {
         yield return new WaitForSeconds(1);
+        Debug.Log("Hello");
         currentMovementTime = movementTime;
     }
 }
