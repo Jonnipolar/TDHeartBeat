@@ -21,12 +21,18 @@ namespace TDHeartBeat.Assets.Scripts.AStar
             else { _evenState = false; }
         }
 
+        ///<summary>
+        /// Gets the state X position
+        ///</summary>
         public int GetPosX() => _cellPosX;
+        ///<summary>
+        /// Gets the state Y position
+        ///</summary>
         public int GetPosY() => _cellPosY;
 
         public List<Tuple<string, Vector2>> availableMoves(List<Vector2Int> validCells, Tilemap map)
         {
-            // Creating tuple for check as well
+            // Creating tuple one used for execute move, other for the path returned after AStar is finished
             List<Tuple<string, Vector2>> moves = new List<Tuple<string, Vector2>>();
 
             // Every other cell has their diagonal increment in an another direction, hence we need to check all even and odd X's and Y's
