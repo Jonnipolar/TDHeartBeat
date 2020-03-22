@@ -9,17 +9,23 @@ public class VirusMovement : MonoBehaviour
 
     float inverseMovementTime;
     Rigidbody2D rb;
+    Animator animator;
     bool moving;
 
     void Start()
     {
+        path = new Stack<Vector2>();
+        path.Push(new Vector2(-4, 1));
+        path.Push(new Vector2(2, 2));
+        path.Push(new Vector2(1, 1));
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         inverseMovementTime = 1.0f / movementTime;
     }
 
     void followPath()
     {
-        if(!moving && path.Count > 0)
+        if(!moving)
         {
             MoveTo(path.Pop());
         }
@@ -35,11 +41,12 @@ public class VirusMovement : MonoBehaviour
         moving = true;
 
         float sqrDist = (transform.position - endPos).sqrMagnitude;
-        while(sqrDist > float.Epsilon)
+        Animate(endPos - (Vector3)rb.position);
+        while(sqrDist > 0.01f)
         {
-            Vector3 newPostion = Vector2.MoveTowards(rb.position, endPos, inverseMovementTime * Time.deltaTime);
+            Vector2 newPosition = Vector2.MoveTowards(rb.position, endPos, inverseMovementTime * Time.deltaTime);
 
-            rb.MovePosition(newPostion);
+            rb.MovePosition(newPosition);
 
             sqrDist = (transform.position - endPos).sqrMagnitude;
 
@@ -49,11 +56,21 @@ public class VirusMovement : MonoBehaviour
         moving = false;
     }
 
+    void Animate(Vector3 move)
+    {
+        animator.SetFloat("Horizontal", move.x);
+		animator.SetFloat("Vertical", move.y);
+		animator.SetFloat("Magnitude", move.magnitude);
+    }
+
     void Update() 
     {
-        if(path != null)
+        if(path != null && path.Count > 0)
         {
             followPath();    
+        }
+        else {
+            Animate(new Vector3(0, 0, 0));
         }
     }
 
