@@ -6,6 +6,7 @@ using UnityEngine;
 public class VirusMovement : MonoBehaviour
 {
     public Stack<Vector2> path;
+    public GetAllTilePositions moves; 
 
     float inverseMovementTime;
     Rigidbody2D rb;
@@ -17,6 +18,7 @@ public class VirusMovement : MonoBehaviour
     {
         virus = GetComponent<Virus>();
         rb = GetComponent<Rigidbody2D>();
+        Debug.Log(virus.currentMovementTime);
         inverseMovementTime = 1.0f / virus.currentMovementTime;
     }
 
@@ -38,7 +40,7 @@ public class VirusMovement : MonoBehaviour
         moving = true;
 
         float sqrDist = (transform.position - endPos).sqrMagnitude;
-        while(sqrDist > float.Epsilon)
+        while(sqrDist > 0.01f)
         {
             Vector3 newPostion = Vector2.MoveTowards(rb.position, endPos, inverseMovementTime * Time.deltaTime);
 
@@ -69,6 +71,10 @@ public class VirusMovement : MonoBehaviour
         if(path != null)
         {
             followPath();    
+        }
+        else
+        {
+            SetPath(moves.moves);
         }
     }
 
