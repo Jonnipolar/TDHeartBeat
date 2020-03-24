@@ -17,7 +17,7 @@ public class TileHighlight : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void CallUpdate()
     {
         // Get mouse position in cellspace
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -32,7 +32,7 @@ public class TileHighlight : MonoBehaviour
                 oldTile.sprite = oldSprite;
                 tilemap.SetTile(oldpos, oldTile);
             }
-            
+
             // Register current tile as old tile
             oldpos = position;
             oldSprite = tilemap.GetSprite(position);
