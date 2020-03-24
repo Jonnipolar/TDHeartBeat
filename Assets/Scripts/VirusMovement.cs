@@ -16,6 +16,7 @@ public class VirusMovement : MonoBehaviour
     
     void Start()
     {
+        animator = GetComponent<Animator>();
         virus = GetComponent<Virus>();
         rb = GetComponent<Rigidbody2D>();
         Debug.Log(virus.currentMovementTime);
