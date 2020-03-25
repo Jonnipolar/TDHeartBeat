@@ -24,6 +24,7 @@ public class TowerSelector : MonoBehaviour
         showingTowerIndex = 0;
         showingPreview = false;
         towerPreview.sprite = towers[selectedTowerIndex].GetComponent<SpriteRenderer>().sprite;
+        towerPreview.color = new Color(1f,1f,1f,0.7f);
         maxVector = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
         selectedTilePos = maxVector;
         tileHighlight = GetComponent<TileHighlight>();
@@ -102,7 +103,7 @@ public class TowerSelector : MonoBehaviour
         if(selectedTilePos != maxVector && !showingPreview)
         {
             showingPreview = true;
-            // arrows.transform.position = selectedTilePos;
+            arrows.transform.position = selectedTilePos;
             towerPreview.transform.position = selectedTilePos;
             arrows.enabled = true;
             towerPreview.enabled = true;
