@@ -12,10 +12,12 @@ public class WaveSpawner : MonoBehaviour
     private float countDown = 2f;
 
     private int waveIndex = 0;
+    private Stack<Vector2> path;
     private void Update() 
     {
         if(countDown <= 0f)
         {
+            path = GetComponent<GetAllTilePositions>().moves;
             StartCoroutine(SpawnWave());
             countDown = timeBetweenWaves;
         }
@@ -35,6 +37,8 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        Transform virus = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        virus.parent = spawnPoint;
+        virus.GetComponent<VirusMovement>().SetPath(new Stack<Vector2>(new Stack<Vector2>(path)));
     }
 }

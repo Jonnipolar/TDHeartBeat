@@ -7,8 +7,9 @@ public class GetAllTilePositions : MonoBehaviour
 {
 
     public Tilemap tileMap;
- 
+    [HideInInspector]
     public List<Vector3> availablePlaces;
+    [HideInInspector]
     public List<Vector3Int> availablePlacesCell;
     public Transform goalPosition;
     public Transform startPosition;
@@ -23,7 +24,7 @@ public class GetAllTilePositions : MonoBehaviour
     // end 0 -2
     void Awake () 
     {
-        tileMap = transform.GetComponentInParent<Tilemap>();
+        // tileMap = transform.GetComponentInParent<Tilemap>();
         availablePlaces = new List<Vector3>();
  
         for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)
