@@ -8,6 +8,7 @@ public class SlowTurret : MonoBehaviour
      // For targeting enemy
     private List<GameObject> target;
     private Virus virus;
+    private Animator anim;
     
     [Header("Attributes")]
     public float range = 15f;
@@ -23,6 +24,7 @@ public class SlowTurret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         EventManager.StartListening("HeartBeat", HandleHeartBeat);
         target = new List<GameObject>();
     }
@@ -46,6 +48,7 @@ public class SlowTurret : MonoBehaviour
     void HandleHeartBeat()
     {
         UpdateTarget();
+        anim.SetTrigger("Beat");
         if(target == null) { return; }
         Shoot();
     }
