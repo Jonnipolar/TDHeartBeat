@@ -7,11 +7,12 @@ public class GetAllTilePositions : MonoBehaviour
 {
 
     public Tilemap tileMap;
- 
+    [HideInInspector]
     public List<Vector3> availablePlaces;
+    [HideInInspector]
     public List<Vector3Int> availablePlacesCell;
-    public Vector2Int goalPosition;
-    public Vector2Int startPosition;
+    public Transform goalPosition;
+    public Transform startPosition;
     
     // Private variables
     private AStarAgent agent;
@@ -23,7 +24,7 @@ public class GetAllTilePositions : MonoBehaviour
     // end 0 -2
     void Awake () 
     {
-        tileMap = transform.GetComponentInParent<Tilemap>();
+        // tileMap = transform.GetComponentInParent<Tilemap>();
         availablePlaces = new List<Vector3>();
  
         for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)
@@ -62,8 +63,8 @@ public class GetAllTilePositions : MonoBehaviour
         // Debug.Log($"Size of available places: {availablePlaces.Count}");
         // Debug.Log($"Size of available places Cell: {availablePlacesCell.Count}");
 
-        agent = new AStarAgent(goalPosition);
-        moves = agent.getMoves(availableCells2D, startPosition, tileMap);
+        agent = new AStarAgent(new Vector2Int((int) goalPosition.position.x, (int) goalPosition.position.y));
+        moves = agent.getMoves(availableCells2D, new Vector2Int((int)startPosition.position.x, (int) startPosition.position.y), tileMap);
 
         // Debug.Log("Path:");
         // foreach (var move in moves)
