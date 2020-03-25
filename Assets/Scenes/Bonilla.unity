@@ -15267,6 +15267,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &970791740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 970791742}
+  - component: {fileID: 970791741}
+  m_Layer: 0
+  m_Name: EnemyController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &970791741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970791740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc823ab03a190e146aa376ef156fed37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMap: {fileID: 295992477}
+  availablePlaces: []
+  availablePlacesCell: []
+  goal: {fileID: 1039277998}
+  SpawningLocations: []
+  BlueVirusPrefab: {fileID: 3638108634605658767, guid: d42f67c16bc4cd645a588740d1b51c6c,
+    type: 3}
+  GreenVirusPrefab: {fileID: 7148826422463887825, guid: d7c90ae335f2ca5428b48db835baa971,
+    type: 3}
+  YellowVirusPrefab: {fileID: 1794995438838309472, guid: d3437d8467581d04f818e8415f084f1b,
+    type: 3}
+  OrangeVirusPrefab: {fileID: 1937614445099921866, guid: 5c5813ff73ca7164f92bd9fe4f3b3111,
+    type: 3}
+--- !u!4 &970791742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970791740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.679005, y: -2.4513085, z: -56.585938}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1018686267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15336,6 +15392,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 108dfd0af3123ee41b04079bf5bfe8e5, type: 3}
+--- !u!1 &1039277998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6161173398566975316, guid: 5f0fe4cbb5c0c204cb8c6fe6dc85af97,
+    type: 3}
+  m_PrefabInstance: {fileID: 555094894}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1599424443
 GameObject:
   m_ObjectHideFlags: 0
