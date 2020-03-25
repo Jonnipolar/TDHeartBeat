@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NormalTurret : MonoBehaviour
 {
+    Animator anim;
     // For targeting enemy
     private Transform target;
     [Header("Attributes")]
@@ -12,14 +13,12 @@ public class NormalTurret : MonoBehaviour
 
     [Header("Unity Setup Fields")]
     public string enemyTag = "Enemy";
-    public GameObject projectile;
-    // Might not need
-    public Transform firePoint;
-
+    public Transform projectilePrefab;
 
     // Start is called before the first frame update
     void Start()
     {
+        anim = GetComponent<Animator>();
         InvokeRepeating ("UpdateTarget", 0f, 0.5f);
         EventManager.StartListening("HeartBeat", HandleHeartBeat);
     }
@@ -54,12 +53,13 @@ public class NormalTurret : MonoBehaviour
     void HandleHeartBeat()
     {
         if(target == null) { return; }
+        anim.SetTrigger("Beat");
         Shoot();
     }
 
     void Shoot()
     {
-        GameObject projectileGO = (GameObject) Instantiate(projectile, firePoint.position, firePoint.rotation);
+        GameObject projectileGO = Instantiate(projectilePrefab, transform.position, transform.rotation).gameObject;
         Projectile proj = projectileGO.GetComponent<Projectile>();
 
         if(proj != null)

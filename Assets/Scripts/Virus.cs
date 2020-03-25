@@ -23,7 +23,6 @@ public class Virus : MonoBehaviour
     IEnumerator SlowCoroutine()
     {
         yield return new WaitForSeconds(1);
-        Debug.Log("Hello");
         currentMovementTime = movementTime;
     }
 }

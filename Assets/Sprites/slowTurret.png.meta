@@ -1,0 +1,583 @@
+fileFormatVersion: 2
+guid: cd52ef6a102f38b459504046ef805932
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5866524626217652342
+    second: slowTurret_0
+  - first:
+      213: -5222504971592885716
+    second: slowTurret_1
+  - first:
+      213: 6404256617879946620
+    second: slowTurret_2
+  - first:
+      213: 1948525127589979042
+    second: slowTurret_3
+  - first:
+      213: 386940282238334394
+    second: slowTurret_4
+  - first:
+      213: 2152591437765178377
+    second: slowTurret_5
+  - first:
+      213: 4101832516933899077
+    second: slowTurret_6
+  - first:
+      213: -3175495306709228976
+    second: slowTurret_7
+  - first:
+      213: -1959292612609088567
+    second: slowTurret_8
+  - first:
+      213: -4784065522011761812
+    second: slowTurret_9
+  - first:
+      213: -468155481386383058
+    second: slowTurret_10
+  - first:
+      213: 5268058149444852585
+    second: slowTurret_11
+  - first:
+      213: -5846912436301213328
+    second: slowTurret_12
+  - first:
+      213: -4104466056472546298
+    second: slowTurret_13
+  - first:
+      213: -1055393548141012611
+    second: slowTurret_14
+  - first:
+      213: -2106496977276879430
+    second: slowTurret_15
+  - first:
+      213: 4285111481138067795
+    second: slowTurret_16
+  - first:
+      213: -5155042676671439532
+    second: slowTurret_17
+  - first:
+      213: 7995541641991094418
+    second: slowTurret_18
+  - first:
+      213: 7543927506512936891
+    second: slowTurret_19
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 2500
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: slowTurret_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6144
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f27344feae59ea0800000000000000
+      internalID: -5866524626217652342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_1
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 6144
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2a9e7af56fe587b0800000000000000
+      internalID: -5222504971592885716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_2
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 6144
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c75cd27767d70e850800000000000000
+      internalID: 6404256617879946620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_3
+      rect:
+        serializedVersion: 2
+        x: 4608
+        y: 6144
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a36ce1a74d8a0b10800000000000000
+      internalID: 1948525127589979042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4608
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab5fa18f220be5500800000000000000
+      internalID: 386940282238334394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_5
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 4608
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9047a8af18a8fdd10800000000000000
+      internalID: 2152591437765178377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_6
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 4608
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 543ddf311f2ace830800000000000000
+      internalID: 4101832516933899077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_7
+      rect:
+        serializedVersion: 2
+        x: 4608
+        y: 4608
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0522da1d7df5ee3d0800000000000000
+      internalID: -3175495306709228976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3072
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c36366efb13fc4e0800000000000000
+      internalID: -1959292612609088567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_9
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 3072
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c639b4a31c59b9db0800000000000000
+      internalID: -4784065522011761812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_10
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 3072
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e290050f117c089f0800000000000000
+      internalID: -468155481386383058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_11
+      rect:
+        serializedVersion: 2
+        x: 4608
+        y: 3072
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96b13cdb9f6eb1940800000000000000
+      internalID: 5268058149444852585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 071d3711e189bdea0800000000000000
+      internalID: -5846912436301213328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_13
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6043e473ed10a07c0800000000000000
+      internalID: -4104466056472546298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_14
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 1536
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d79d0d0e82d7a51f0800000000000000
+      internalID: -1055393548141012611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_15
+      rect:
+        serializedVersion: 2
+        x: 4608
+        y: 1536
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abd3afce82834c2e0800000000000000
+      internalID: -2106496977276879430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 359be284036c77b30800000000000000
+      internalID: 4285111481138067795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_17
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 1530
+        height: 1530
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45d15078ffb9578b0800000000000000
+      internalID: -5155042676671439532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_18
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 0
+        width: 1536
+        height: 1536
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29009bdd2ced5fe60800000000000000
+      internalID: 7995541641991094418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slowTurret_19
+      rect:
+        serializedVersion: 2
+        x: 4608
+        y: 0
+        width: 1536
+        height: 1536
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf7005091a61b860800000000000000
+      internalID: 7543927506512936891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

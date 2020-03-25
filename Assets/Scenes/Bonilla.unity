@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 295992476}
   - component: {fileID: 295992478}
   - component: {fileID: 295992479}
+  - component: {fileID: 295992480}
   m_Layer: 0
   m_Name: Veins
   m_TagString: Untagged
@@ -1821,6 +1822,8 @@ MonoBehaviour:
   tileMap: {fileID: 295992477}
   availablePlaces: []
   availablePlacesCell: []
+  goalPosition: {x: 0, y: 0}
+  startPosition: {x: 0, y: 0}
 --- !u!114 &295992479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1834,6 +1837,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_level: {fileID: 295992477}
+--- !u!114 &295992480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295992474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37d442c70b36f149890ad86f6ac8ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 1599424446}
+  tile_change:
+  - {fileID: 21300000, guid: 6e9e43c7e603b004d8c8a151d79c8ac9, type: 3}
+  - {fileID: 21300000, guid: c2cdc06c55ce7214f8016f1255b318d5, type: 3}
+  pos: {x: -8, y: 8, z: 0}
+  startDelay: 0
+  switchTime: 1
 --- !u!1 &873315845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1932,7 +1954,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10.25787
+  orthographic size: 3.0321321
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1956,7 +1978,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 931489642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.16, y: 0.11, z: -10}
+  m_LocalPosition: {x: -7.83, y: 3.21, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
