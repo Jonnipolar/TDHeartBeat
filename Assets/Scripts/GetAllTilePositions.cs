@@ -5,19 +5,17 @@ using TDHeartBeat.Assets.Scripts.AStar;
 
 public class GetAllTilePositions : MonoBehaviour
 {
-
     public Tilemap tileMap;
     [HideInInspector]
     public List<Vector3> availablePlaces;
     [HideInInspector]
     public List<Vector3Int> availablePlacesCell;
     public Transform goalPosition;
-    public Transform startPosition;
+    /*public Transform startPosition;*/
     
     // Private variables
     private AStarAgent agent;
     [HideInInspector]
-    public Stack<Vector2> moves;
     private List<Vector2Int> availableCells2D;
  
     // Start -8, 8
@@ -39,10 +37,6 @@ public class GetAllTilePositions : MonoBehaviour
                     availablePlaces.Add(place);
                     availablePlacesCell.Add(cellSpace);
                 }
-                else
-                {
-                    //No tile at "place"
-                }
             }
         }
 
@@ -51,32 +45,24 @@ public class GetAllTilePositions : MonoBehaviour
         {
             availableCells2D.Add(new Vector2Int(pos.x, pos.y));
         }
+
+        var goal = tileMap.WorldToCell(goalPosition.transform.position);
+        agent = new AStarAgent(new Vector2Int(goal.x, goal.y));
     }
 
-    void Start()
+    public Stack<Vector2> getMoves(List<Vector2Int> availableCells, Vector2Int positionNow)
     {
-        // for(var i = 0; i < availablePlaces.Count; i++)
-        // {
-        //     Debug.Log($"World: {availablePlaces[i]} \nCell: {availablePlacesCell[i]}");
-        // }
-
-        // Debug.Log($"Size of available places: {availablePlaces.Count}");
-        // Debug.Log($"Size of available places Cell: {availablePlacesCell.Count}");
-
-        agent = new AStarAgent(new Vector2Int((int) goalPosition.position.x, (int) goalPosition.position.y));
-        moves = agent.getMoves(availableCells2D, new Vector2Int((int)startPosition.position.x, (int) startPosition.position.y), tileMap);
-
-        // Debug.Log("Path:");
-        // foreach (var move in moves)
-        // {
-        //     Debug.Log($"Pos: ({move.x}, {move.y})");
-        // }
-
+        return agent.getMoves(availableCells, positionNow, tileMap);
     }
 
-    // Update is called once per frame
-    void Update()
+    public Stack<Vector2> getMoves(List<Vector2Int> availableCells, Vector3 positionNow)
     {
-        
+        Vector3Int pos = tileMap.WorldToCell(positionNow);
+        return agent.getMoves(availableCells, new Vector2Int(pos.x, pos.y), tileMap);
+    }
+
+    public List<Vector2Int> getAvailableCells()
+    {
+        return availableCells2D;
     }
 }
