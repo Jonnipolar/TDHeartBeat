@@ -15,13 +15,54 @@ public class WaveSpawner : MonoBehaviour
     private List<Vector2Int> availableCells;
     private GetAllTilePositions tilePositionScript;
     private List<Stack<Vector2>> startingPaths;
-
+    private Dictionary<Vector2, Stack<Vector2>> blockPaths;
     private void Awake()
     {
         tilePositionScript = GetComponent<GetAllTilePositions>();
         availableCells = new List<Vector2Int>();
         startingPaths = new List<Stack<Vector2>>();
+        blockPaths = new Dictionary<Vector2, Stack<Vector2>>();
+        activeEnemies = new List<Transform>();
         StartCoroutine(Setup());
+    }
+
+    private void Start() 
+    {
+        StartCoroutine(CheckIfBlocked());
+    }
+
+    private Stack<Vector2> GetBlockPath(Vector2 blockPoint)
+    {
+        Stack<Vector2> thisStack = null;
+        if(blockPaths.TryGetValue(blockPoint, out thisStack))
+        {
+            return thisStack;
+        }
+        else
+        {
+            Debug.Log("RECALCULATING");
+            thisStack = new Stack<Vector2>(tilePositionScript.getMoves(availableCells, blockPoint));
+            blockPaths.Add(blockPoint, thisStack);
+            return thisStack;
+        }
+    }
+
+    IEnumerator CheckIfBlocked()
+    {
+        while(true)
+        {
+            foreach (var virus in activeEnemies)
+            {
+                var virusmovement = virus.GetComponent<VirusMovement>();
+                if(virusmovement.stuck)
+                {
+                    Debug.Log("FOUND STUCK");
+                    virusmovement.stuck = false;
+                    virusmovement.path = GetBlockPath(virusmovement.currentPathPoint);
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private void Update() 
@@ -51,6 +92,7 @@ public class WaveSpawner : MonoBehaviour
         int index = (int)Random.Range(0, spawnPoints.Count - 0.01f);
         var transF = spawnPoints[index];
         Transform virus = Instantiate(enemyTypes[(int)Random.Range(0, enemyTypes.Count - 0.01f)], transF.position, transF.rotation);
+        activeEnemies.Add(virus);
         virus.parent = transF;
         var pathInp = new Stack<Vector2>(startingPaths[index]);
         virus.GetComponent<VirusMovement>().SetPath(pathInp);
@@ -73,5 +115,6 @@ public class WaveSpawner : MonoBehaviour
 
             startingPaths.Add(reverse);
         }
+
     }
 }

@@ -8,6 +8,8 @@ public class VirusMovement : MonoBehaviour
 {
     public Stack<Vector2> path;
     public LayerMask blockingLayer;  
+    public bool stuck;
+    public Vector2 currentPathPoint;
     private BoxCollider2D boxCollider;  
     float inverseMovementTime;
     Rigidbody2D rb;
@@ -20,6 +22,7 @@ public class VirusMovement : MonoBehaviour
     
     void Start()
     {
+        stuck = false;
         boxCollider = GetComponent <BoxCollider2D>();
         animator = GetComponent<Animator>();
         virus = GetComponent<Virus>();
@@ -41,8 +44,9 @@ public class VirusMovement : MonoBehaviour
         if(!moving)
         {
             LineRenderer lineRenderer = GetComponent<LineRenderer>();
-            MoveTo(path.Pop());
+            Vector2 next = path.Pop();
             lineRenderer.positionCount = path.Count + 1;
+            MoveTo(next);
         }
     }
 
@@ -51,23 +55,35 @@ public class VirusMovement : MonoBehaviour
         StartCoroutine(MovementCoroutine(pos));
     }
 
-    Vector2 FindSideStep(Vector3 uVector, Vector3 startPos, Vector3 endPos)
+    Stack<Vector2> FindSideSteps(Stack<Vector2> paths, Vector3 uVector, Vector3 startPos, Vector3 endPos, int r)
     {
         Vector3 sideStep;
-        for(float i = 0.2f; i < 3f; i += 0.2f) {
+        for(float i = 0.2f; i < 5.0f; i += 0.2f) {
             sideStep = uVector * i;
-            for(int k =  20; k < 360; k += 20)
+            for(int k =  15; k < 360; k += 15)
             {
                 sideStep = Quaternion.AngleAxis(k, Vector3.forward) * sideStep;
                 Vector3 sideStepPosition = startPos + sideStep;
                 if(!ObstacleCheck(startPos, sideStepPosition) && !ObstacleCheck(sideStepPosition, endPos))
                 {
-                    return sideStepPosition;
+                    paths.Push(sideStepPosition);
+                    return paths;
+                }
+                else if (r < 3) 
+                {
+                    r++;
+                    paths = FindSideSteps(paths, uVector, sideStepPosition, endPos, r);
+                    if(paths.Count > 0)
+                    {
+                        paths.Push(sideStepPosition);
+                        return paths;
+                    }
                 }
             }
         }
-        return startPos;
+        return paths;
     }
+
     IEnumerator MovementCoroutine(Vector3 endPos)
     {
         moving = true;
@@ -78,11 +94,12 @@ public class VirusMovement : MonoBehaviour
 
         if(ObstacleCheck(rb.position, endPos)) {
             bool blocked = true;
-            while(blocked)
+            Stack<Vector2> steps = FindSideSteps(new Stack<Vector2>(), uVector, rb.position, endPos, 0);
+            if(steps.Count > 0) 
             {
-                Vector2 step = FindSideStep(uVector, rb.position, endPos);
-                if(step != rb.position) 
+                while(steps.Count > 0)
                 {
+                    Vector2 step = steps.Pop();
                     Vector3 sideStepVector = step - rb.position;
                     Animate(sideStepVector);
                     sqrDist = sideStepVector.sqrMagnitude;
@@ -94,14 +111,17 @@ public class VirusMovement : MonoBehaviour
                         sqrDist = (rb.position - step).sqrMagnitude;
                         yield return null;
                     }
-                        Debug.Log("SIDE AND CONTINUE");
-                    
                 }
-                else 
+                Debug.Log("SIDE AND CONTINUE");
+            }
+            else 
+            {
+                steps = FindSideSteps(new Stack<Vector2>(), uVector, rb.position, path.Peek(), 0);
+                if(steps.Count > 0) 
                 {
-                    step = FindSideStep(uVector, rb.position, path.Peek());
-                    if(step != rb.position) 
+                    while(steps.Count > 0) 
                     {
+                        Vector2 step = steps.Pop();
                         Vector3 sideStepVector = step - rb.position;
                         Animate(sideStepVector);
                         sqrDist = sideStepVector.sqrMagnitude;
@@ -113,23 +133,31 @@ public class VirusMovement : MonoBehaviour
                             sqrDist = (rb.position - step).sqrMagnitude;
                             yield return null;
                         }
-                        Debug.Log("SIDE TOWARdS NEXT AND BREAK");
-                        moving = false;
-                        yield break;
                     }
+                    Debug.Log("SIDE TOWARdS NEXT AND BREAK");
+                    moving = false;
+                    yield break;
                 }
+            }
 
-                if(!ObstacleCheck(rb.position, endPos))
+            if(!ObstacleCheck(rb.position, endPos))
+            {
+                blocked = false;
+                if(ObstacleCheck(rb.position, path.Peek()))
                 {
-                    blocked = false;
-                    if(ObstacleCheck(rb.position, path.Peek()))
-                    {
-                        moving = false;
-                        Debug.Log("SIDE AND BREAK");
-                        yield break;
-                    }
-
+                    moving = false;
+                    Debug.Log("SIDE AND BREAK");
+                    yield break;
                 }
+
+            }
+            else 
+            {
+                Debug.Log("BLOCKED!");
+                moving = false;
+                path = null;
+                stuck = true;
+                yield break;
             }
         }
         
@@ -142,15 +170,15 @@ public class VirusMovement : MonoBehaviour
             sqrDist = (transform.position - endPos).sqrMagnitude;
             yield return null;
         }
-
+        currentPathPoint = endPos;
         moving = false;
     }
 
     bool ObstacleCheck(Vector3 currPos, Vector3 endPos)
     {
-        boxCollider.enabled = false;
+        // boxCollider.enabled = false;
         RaycastHit2D hit = Physics2D.Linecast(currPos, endPos, blockingLayer);
-        boxCollider.enabled = true;
+        // boxCollider.enabled = true;
         
         // Return true if theres an obstacle
         return hit.transform != null;
@@ -179,21 +207,24 @@ public class VirusMovement : MonoBehaviour
 
         if(path != null && path.Count > 0)
         {
+            LineRenderer lineRenderer = GetComponent<LineRenderer>();
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position);
+            int i = 1;
+            foreach (var coord in path)
+            {
+                lineRenderer.SetPosition(i, coord);
+                i++;
+            }
             followPath();    
         }
         else
         {
+            LineRenderer lineRenderer = GetComponent<LineRenderer>();
+            lineRenderer.enabled = false;
             Animate(new Vector3(0, 0, 0));
         }
 
-        LineRenderer lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.SetPosition(0, transform.position);
-        int i = 1;
-        foreach (var coord in path)
-        {
-            lineRenderer.SetPosition(i, coord);
-            i++;
-        }
     }
 
     public void SetPath(Stack<Vector2> newPath) 

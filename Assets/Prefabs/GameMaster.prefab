@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1170969726830794812
+--- !u!1 &4592782752848506414
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1170969726830794810}
-  - component: {fileID: 1170969726830794811}
-  - component: {fileID: 1170969726830794809}
+  - component: {fileID: 4592782752848506408}
+  - component: {fileID: 4592782752848506409}
+  - component: {fileID: 4592782752848506411}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1170969726830794810
+--- !u!4 &4592782752848506408
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170969726830794812}
+  m_GameObject: {fileID: 4592782752848506414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.9043002, y: 0.9573006, z: -58.115234}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,29 +32,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1170969726830794811
+--- !u!114 &4592782752848506409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170969726830794812}
+  m_GameObject: {fileID: 4592782752848506414}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cbc229f4c9ad4d4fa18c7f39f103a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3638108634605658995, guid: d42f67c16bc4cd645a588740d1b51c6c,
-    type: 3}
-  spawnPoint: {fileID: 0}
+  enemyTypes:
+  - {fileID: 3638108634605658995, guid: d42f67c16bc4cd645a588740d1b51c6c, type: 3}
+  - {fileID: 1025554857088906525, guid: d7c90ae335f2ca5428b48db835baa971, type: 3}
+  - {fileID: 5398272185154184481, guid: 5c5813ff73ca7164f92bd9fe4f3b3111, type: 3}
+  - {fileID: 8062028763507009895, guid: d3437d8467581d04f818e8415f084f1b, type: 3}
+  spawnPoints: []
   timeBetweenWaves: 5
---- !u!114 &1170969726830794809
+--- !u!114 &4592782752848506411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170969726830794812}
+  m_GameObject: {fileID: 4592782752848506414}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f9a46fecb0761d41aae8038544d582a, type: 3}
@@ -64,4 +67,3 @@ MonoBehaviour:
   availablePlaces: []
   availablePlacesCell: []
   goalPosition: {fileID: 0}
-  startPosition: {fileID: 0}

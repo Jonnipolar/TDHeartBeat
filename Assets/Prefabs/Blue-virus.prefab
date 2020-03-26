@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 3638108634605658995}
   - component: {fileID: 3638108634605658994}
   - component: {fileID: 3638108634605658765}
+  - component: {fileID: -5469888916122110720}
   - component: {fileID: 3638108634605658764}
   - component: {fileID: 3638108634605658992}
-  - component: {fileID: -5469888916122110720}
-  - component: {fileID: -5913096989650085961}
   m_Layer: 8
   m_Name: Blue-virus
   m_TagString: Enemy
@@ -101,6 +100,21 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &-5469888916122110720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3638108634605658767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8185b2e02d701f942b8047b576b8c137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementTime: 0.5
+  health: 100
+  currentMovementTime: 0.5
 --- !u!95 &3638108634605658764
 Animator:
   serializedVersion: 3
@@ -141,44 +155,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-5469888916122110720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3638108634605658767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8185b2e02d701f942b8047b576b8c137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementTime: 0.5
-  health: 100
-  currentMovementTime: 0.5
---- !u!61 &-5913096989650085961
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3638108634605658767}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.024, y: 1.024}
-    newSize: {x: 10.24, y: 10.24}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.024, y: 1.024}
-  m_EdgeRadius: 0
