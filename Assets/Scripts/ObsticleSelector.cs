@@ -80,11 +80,12 @@ public class ObsticleSelector : MonoBehaviour
 
     void AddObsticle(Vector3 pos)
     {
+        vainTilemap.SetTile(vainTilemap.WorldToCell(pos), null);
         Tile tileHighlight = ScriptableObject.CreateInstance<Tile>();
         tileHighlight.sprite = obsticle;
         bodyTilemap.SetTile(bodyTilemap.WorldToCell(pos), tileHighlight);
-        vainTilemap.SetTile(vainTilemap.WorldToCell(pos), null);
 
+        EventManager.TriggerEvent("TILECHANGE");
         // set coroutine to remove it in x amount of time ** last **
         // remember to save the sprite before removing it in vain
         // reset vain at the end of coroutine

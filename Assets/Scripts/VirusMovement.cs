@@ -20,7 +20,7 @@ public class VirusMovement : MonoBehaviour
     private Color c1 = Color.black;
     private Color c2 = Color.white;
     private Vector2 goal;
-    
+    LineRenderer linerenderer;
     void Start()
     {
         stuck = false;
@@ -31,22 +31,25 @@ public class VirusMovement : MonoBehaviour
         /*Debug.Log(virus.currentMovementTime);*/
         inverseMovementTime = 1.0f / virus.currentMovementTime;
         
-        LineRenderer linerenderer = gameObject.AddComponent<LineRenderer>();
+        if(linerenderer == null)
+        {
+            linerenderer = GetComponent<LineRenderer>();
+        }
         linerenderer.material = new Material(Shader.Find("Sprites/Default"));
         linerenderer.widthMultiplier = 0.2f;
         linerenderer.positionCount = path.Count + 1;
         linerenderer.sortingOrder = 2;
         linerenderer.startColor = c1;
         linerenderer.endColor = c2;
+        currentPathPoint = rb.position;
     }
 
     void followPath()
     {
         if(!moving)
         {
-            LineRenderer lineRenderer = GetComponent<LineRenderer>();
             Vector2 next = path.Pop();
-            lineRenderer.positionCount = path.Count + 1;
+            linerenderer.positionCount = path.Count + 1;
             MoveTo(next);
         }
     }
@@ -206,30 +209,31 @@ public class VirusMovement : MonoBehaviour
             inverseMovementTime = 1.0f / virus.currentMovementTime;
         }
 
-        if(path != null && path.Count > 0)
+        if(path != null )
         {
-            LineRenderer lineRenderer = GetComponent<LineRenderer>();
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, transform.position);
-            int i = 1;
-            foreach (var coord in path)
+            if(path.Count > 0)
             {
-                lineRenderer.SetPosition(i, coord);
-                i++;
+                linerenderer.enabled = true;
+                linerenderer.SetPosition(0, transform.position);
+                int i = 1;
+                foreach (var coord in path)
+                {
+                    linerenderer.SetPosition(i, coord);
+                    i++;
+                }
+                followPath();    
             }
-            followPath();    
+            else if(path.Count == 0 && checkInGoalZone())
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {
-            LineRenderer lineRenderer = GetComponent<LineRenderer>();
-            lineRenderer.enabled = false;
+            linerenderer.enabled = false;
             Animate(new Vector3(0, 0, 0));
         }
 
-        if(path.Count == 0 && checkInGoalZone())
-        {
-            Destroy(gameObject);
-        }
     }
 
 
@@ -237,6 +241,11 @@ public class VirusMovement : MonoBehaviour
     {
         this.goal = goal;
         path = newPath;
+        if(linerenderer == null)
+        {
+            linerenderer = GetComponent<LineRenderer>();
+        }
+        linerenderer.positionCount = path.Count + 1;
     }
 
     private bool checkInGoalZone()

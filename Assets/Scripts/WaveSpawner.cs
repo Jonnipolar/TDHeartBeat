@@ -29,6 +29,13 @@ public class WaveSpawner : MonoBehaviour
     private void Start() 
     {
         StartCoroutine(CheckIfBlocked());
+        // EventManager.StartListening("TILECHANGE", HandleTileChange);
+    }
+
+    private void HandleTileChange()
+    {
+        tilePositionScript.Calculate();
+        availableCells = tilePositionScript.getAvailableCells();
     }
 
     private Stack<Vector2> GetBlockPath(Vector2 blockPoint)
@@ -36,14 +43,19 @@ public class WaveSpawner : MonoBehaviour
         Stack<Vector2> thisStack = null;
         if(blockPaths.TryGetValue(blockPoint, out thisStack))
         {
-            return thisStack;
+            return new Stack<Vector2>(thisStack);
         }
         else
         {
+            tilePositionScript.Calculate();
+            availableCells = tilePositionScript.getAvailableCells();
             Debug.Log("RECALCULATING");
             thisStack = new Stack<Vector2>(tilePositionScript.getMoves(availableCells, blockPoint));
-            blockPaths.Add(blockPoint, thisStack);
-            return thisStack;
+            if(thisStack.Count > 0)
+            {
+                blockPaths.Add(blockPoint, thisStack);
+            }
+            return new Stack<Vector2>(thisStack);
         }
     }
 
@@ -51,14 +63,31 @@ public class WaveSpawner : MonoBehaviour
     {
         while(true)
         {
+            List<int> idxToRemove = new List<int>();
+            for(int i = 0; i < activeEnemies.Count; i++)
+            {
+                if(activeEnemies[i] == null)
+                {
+                    idxToRemove.Add(i);
+                }
+            }
+            foreach(var i in idxToRemove)
+            {
+                activeEnemies.RemoveAt(i);
+            }
+
             foreach (var virus in activeEnemies)
             {
                 var virusmovement = virus.GetComponent<VirusMovement>();
                 if(virusmovement.stuck)
                 {
                     Debug.Log("FOUND STUCK");
-                    virusmovement.stuck = false;
-                    virusmovement.path = GetBlockPath(virusmovement.currentPathPoint);
+                    Stack<Vector2> path = GetBlockPath(virusmovement.currentPathPoint);
+                    if(path.Count > 0)
+                    {
+                        virusmovement.SetPath(path, tilePositionScript.getGoalPosition());
+                        virusmovement.stuck = false;
+                    }
                 }
             }
             yield return new WaitForSeconds(0.1f);

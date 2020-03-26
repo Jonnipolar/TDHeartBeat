@@ -22,29 +22,11 @@ public class GetAllTilePositions : MonoBehaviour
     // end 0 -2
     void Awake () 
     {
-        // tileMap = transform.GetComponentInParent<Tilemap>();
         availablePlaces = new List<Vector3>();
- 
-        for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)
-        {
-            for (int n = tileMap.cellBounds.xMin; n < tileMap.cellBounds.xMax; n++)
-            {
-                Vector3Int cellSpace = (new Vector3Int(n, p, (int)tileMap.transform.position.y));
-                Vector3 place = tileMap.CellToWorld(cellSpace);
-                if (tileMap.HasTile(cellSpace))
-                {
-                    //Tile at "place"
-                    availablePlaces.Add(place);
-                    availablePlacesCell.Add(cellSpace);
-                }
-            }
-        }
-
+        availablePlacesCell = new List<Vector3Int>();
         availableCells2D = new List<Vector2Int>();
-        foreach (var pos in availablePlacesCell)
-        {
-            availableCells2D.Add(new Vector2Int(pos.x, pos.y));
-        }
+
+        Calculate();
 
         var goal = tileMap.WorldToCell(goalPosition.transform.position);
         agent = new AStarAgent(new Vector2Int(goal.x, goal.y));
@@ -69,5 +51,33 @@ public class GetAllTilePositions : MonoBehaviour
     public Vector2 getGoalPosition()
     {
         return new Vector2(goalPosition.transform.position.x, goalPosition.transform.position.y);
+    }
+
+    public void Calculate()
+    {
+        availableCells2D.Clear();
+        availablePlacesCell.Clear();
+        availablePlaces.Clear();
+        // tileMap = transform.GetComponentInParent<Tilemap>();
+ 
+        for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)
+        {
+            for (int n = tileMap.cellBounds.xMin; n < tileMap.cellBounds.xMax; n++)
+            {
+                Vector3Int cellSpace = (new Vector3Int(n, p, (int)tileMap.transform.position.y));
+                Vector3 place = tileMap.CellToWorld(cellSpace);
+                if (tileMap.HasTile(cellSpace))
+                {
+                    //Tile at "place"
+                    availablePlaces.Add(place);
+                    availablePlacesCell.Add(cellSpace);
+                }
+            }
+        }
+
+        foreach (var pos in availablePlacesCell)
+        {
+            availableCells2D.Add(new Vector2Int(pos.x, pos.y));
+        }
     }
 }
