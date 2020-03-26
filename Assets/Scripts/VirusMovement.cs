@@ -15,6 +15,7 @@ public class VirusMovement : MonoBehaviour
     private bool movementChange = false;
     private Color c1 = Color.black;
     private Color c2 = Color.white;
+    private Vector2 goal;
     
     void Start()
     {
@@ -98,6 +99,11 @@ public class VirusMovement : MonoBehaviour
             Animate(new Vector3(0, 0, 0));
         }
 
+        if(path.Count == 0 && checkInGoalZone())
+        {
+            Destroy(gameObject);
+        }
+
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.SetPosition(0, transform.position);
         int i = 1;
@@ -109,9 +115,22 @@ public class VirusMovement : MonoBehaviour
     }
 
 
-    public void SetPath(Stack<Vector2> newPath) 
+    public void SetPath(Stack<Vector2> newPath, Vector2 goal) 
     {
+        this.goal = goal;
         path = newPath;
+    }
+
+    // 0.5
+    private bool checkInGoalZone()
+    {
+        if (transform.position.x > goal.x -0.5f && transform.position.x < goal.x + 0.5f &&
+            transform.position.y > goal.y -0.5f && transform.position.y < goal.y + 0.5f)
+        {
+            return true;
+        }
+
+        return false;
     }
 
 }

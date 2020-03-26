@@ -65,4 +65,9 @@ public class GetAllTilePositions : MonoBehaviour
     {
         return availableCells2D;
     }
+
+    public Vector2 getGoalPosition()
+    {
+        return new Vector2(goalPosition.transform.position.x, goalPosition.transform.position.y);
+    }
 }

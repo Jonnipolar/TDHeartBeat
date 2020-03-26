@@ -53,7 +53,7 @@ public class WaveSpawner : MonoBehaviour
         Transform virus = Instantiate(enemyTypes[(int)Random.Range(0, enemyTypes.Count - 0.01f)], transF.position, transF.rotation);
         virus.parent = transF;
         var pathInp = new Stack<Vector2>(startingPaths[index]);
-        virus.GetComponent<VirusMovement>().SetPath(pathInp);
+        virus.GetComponent<VirusMovement>().SetPath(pathInp, tilePositionScript.getGoalPosition());
     }
 
     // Using a coroutine because the other class may have not been loaded up, i think
