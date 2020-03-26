@@ -10,14 +10,6 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenWaves = 5f;
     private float countDown = 2f;
 
-<<<<<<< HEAD
-    private int waveIndex = 0;
-    private Stack<Vector2> path;
-
-    private void Update() 
-    {
-        if(countDown <= 0f && GetComponent<GetAllTilePositions>().moves != null)
-=======
     private int waveIndex = 1;
     private List<Transform> activeEnemies;
     private List<Vector2Int> availableCells;
@@ -35,7 +27,6 @@ public class WaveSpawner : MonoBehaviour
     private void Update() 
     {
         if(availableCells != null && countDown <= 0f)
->>>>>>> 2e1086735aebaa566fa821405bd0ba59639beb01
         {
             StartCoroutine(SpawnWave());
             countDown = timeBetweenWaves;
