@@ -13,21 +13,33 @@ public class VirusMovement : MonoBehaviour
     bool moving;
     private Virus virus;
     private bool movementChange = false;
+    private Color c1 = Color.black;
+    private Color c2 = Color.white;
     
     void Start()
     {
         animator = GetComponent<Animator>();
         virus = GetComponent<Virus>();
         rb = GetComponent<Rigidbody2D>();
-        Debug.Log(virus.currentMovementTime);
+        /*Debug.Log(virus.currentMovementTime);*/
         inverseMovementTime = 1.0f / virus.currentMovementTime;
+        
+        LineRenderer linerenderer = gameObject.AddComponent<LineRenderer>();
+        linerenderer.material = new Material(Shader.Find("Sprites/Default"));
+        linerenderer.widthMultiplier = 0.2f;
+        linerenderer.positionCount = path.Count + 1;
+        linerenderer.sortingOrder = 2;
+        linerenderer.startColor = c1;
+        linerenderer.endColor = c2;
     }
 
     void followPath()
     {
         if(!moving)
         {
+            LineRenderer lineRenderer = GetComponent<LineRenderer>();
             MoveTo(path.Pop());
+            lineRenderer.positionCount = path.Count + 1;
         }
     }
 
@@ -84,6 +96,15 @@ public class VirusMovement : MonoBehaviour
         else
         {
             Animate(new Vector3(0, 0, 0));
+        }
+
+        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.SetPosition(0, transform.position);
+        int i = 1;
+        foreach (var coord in path)
+        {
+            lineRenderer.SetPosition(i, coord);
+            i++;
         }
     }
 
