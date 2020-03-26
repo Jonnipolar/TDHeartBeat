@@ -13,9 +13,10 @@ public class WaveSpawner : MonoBehaviour
 
     private int waveIndex = 0;
     private Stack<Vector2> path;
+
     private void Update() 
     {
-        if(countDown <= 0f)
+        if(countDown <= 0f && GetComponent<GetAllTilePositions>().moves != null)
         {
             path = GetComponent<GetAllTilePositions>().moves;
             StartCoroutine(SpawnWave());

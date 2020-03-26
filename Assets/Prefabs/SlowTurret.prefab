@@ -115,9 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 499e7f23eff01984abc47d38cc881683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 15
+  range: 5
   damage: 20
-  slowAmount: 0.3
+  slowAmount: 0.5
   enemyTag: Enemy
   projectile: {fileID: 0}
   firePoint: {fileID: 0}

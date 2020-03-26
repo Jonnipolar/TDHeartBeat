@@ -63,8 +63,8 @@ public class GetAllTilePositions : MonoBehaviour
         // Debug.Log($"Size of available places: {availablePlaces.Count}");
         // Debug.Log($"Size of available places Cell: {availablePlacesCell.Count}");
 
-        agent = new AStarAgent(new Vector2Int((int) goalPosition.position.x, (int) goalPosition.position.y));
-        moves = agent.getMoves(availableCells2D, new Vector2Int((int)startPosition.position.x, (int) startPosition.position.y), tileMap);
+        agent = new AStarAgent((Vector2Int)tileMap.WorldToCell(goalPosition.position));
+        moves = agent.getMoves(availableCells2D, (Vector2Int)tileMap.WorldToCell(startPosition.position), tileMap);
 
         // Debug.Log("Path:");
         // foreach (var move in moves)
