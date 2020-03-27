@@ -43,5 +43,11 @@ public class TileHighlight : MonoBehaviour
             tilemap.SetTile(position, hightlightTile);
 
         }
+        else if(tilemap.HasTile(oldpos) && position != oldpos) {
+            Tile oldTile = ScriptableObject.CreateInstance<Tile>();
+            oldTile.sprite = oldSprite;
+            tilemap.SetTile(oldpos, oldTile);
+            oldpos = position;
+        }
     }
 }
