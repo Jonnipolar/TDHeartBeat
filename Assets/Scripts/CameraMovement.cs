@@ -5,7 +5,7 @@ namespace Assets.Scripts
 {
     class CameraMovement : MonoBehaviour
     {
-        public float cameraMoveSpeed = 10f;
+        public float cameraMoveSpeed = 40f;
 
         private Camera mainCamera;
         private Vector3 cameraPosition;

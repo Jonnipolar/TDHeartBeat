@@ -17,10 +17,24 @@ public class VirusMovement : MonoBehaviour
     bool moving;
     private Virus virus;
     private bool movementChange = false;
-    private Color c1 = Color.black;
-    private Color c2 = Color.white;
+    private List<Color> colors;
+    private int colorIndex;
     private Vector2 goal;
     LineRenderer linerenderer;
+
+    private void Awake()
+    {
+        colors = new List<Color> { Color.white, Color.black, Color.blue, Color.cyan, Color.gray, Color.green, Color.magenta, Color.red, Color.yellow };
+        if (linerenderer == null)
+        {
+            linerenderer = GetComponent<LineRenderer>();
+        }
+        linerenderer.material = new Material(Shader.Find("Sprites/Default"));
+        linerenderer.widthMultiplier = 0.1f;
+        linerenderer.sortingOrder = 2;
+        colorIndex = 0;
+    }
+
     void Start()
     {
         stuck = false;
@@ -31,17 +45,8 @@ public class VirusMovement : MonoBehaviour
         /*Debug.Log(virus.currentMovementTime);*/
         inverseMovementTime = 1.0f / virus.currentMovementTime;
         
-        if(linerenderer == null)
-        {
-            linerenderer = GetComponent<LineRenderer>();
-        }
-        linerenderer.material = new Material(Shader.Find("Sprites/Default"));
-        linerenderer.widthMultiplier = 0.2f;
-        linerenderer.positionCount = path.Count + 1;
-        linerenderer.sortingOrder = 2;
-        linerenderer.startColor = c1;
-        linerenderer.endColor = c2;
         currentPathPoint = rb.position;
+
     }
 
     void followPath()
@@ -236,7 +241,6 @@ public class VirusMovement : MonoBehaviour
 
     }
 
-
     public void SetPath(Stack<Vector2> newPath, Vector2 goal) 
     {
         this.goal = goal;
@@ -245,7 +249,13 @@ public class VirusMovement : MonoBehaviour
         {
             linerenderer = GetComponent<LineRenderer>();
         }
+
+        if(colorIndex >= colors.Count - 1) { colorIndex = 0;  }
+        else { colorIndex++; }
+
         linerenderer.positionCount = path.Count + 1;
+        linerenderer.startColor = colors[colorIndex];
+        linerenderer.endColor = colors[colorIndex];
     }
 
     private bool checkInGoalZone()
